@@ -2,21 +2,21 @@
 *By Ali Al-Shimari, Daniel Baek, Bryan Chucha, Kristi Nguyen, Brian Yoo*
 ## Domain of interest: NBA Stats
 
-**Why are you interested in this field/domain?** 
+**Why are you interested in this field/domain?**  
 We are interested in predicting who will be rookie of the year (ROTY) based on current rookie stats.
 
-**What other examples of data driven project have you found related to this domain (share at least 3)?**\
-1) James Harden's performance based on the visiting city's strip club rating: Quite inappropriate, but it is by far the most well-known, detailed data analysis project published on Reddit and went viral on Twitter, which inspired a whole wave of studies for NBA stats.\
-2) The adaptation of the 3 point shot (rise over time)\
+**What other examples of data driven project have you found related to this domain (share at least 3)?**  
+1) James Harden's performance based on the visiting city's strip club rating: Quite inappropriate, but it is by far the most well-known, detailed data analysis project published on Reddit and went viral on Twitter, which inspired a whole wave of studies for NBA stats.  
+2) The adaptation of the 3 point shot (rise over time)  
 3) Predicting whether a college player will make it into the NBA based on their college basketball stats
 
-**What data-driven questions do you hope to answer about this domain (share at least 3)?**\
-1) How closely correlated is the rookie's draft place with how well they perform in their rookie season?\
-2) How important is PPG in relation to ROTY?\
+**What data-driven questions do you hope to answer about this domain (share at least 3)?**  
+1) How closely correlated is the rookie's draft place with how well they perform in their rookie season?  
+2) How important is PPG in relation to ROTY?  
 3) Are offensive or defensive players more likely to get ROTY?
 
 ## Finding Data
-**Where did you download the data (e.g., a web URL)?**\
+**Where did you download the data (e.g., a web URL)?**  
 1) [NBA 2021 Rookies](https://www.basketball-reference.com/leagues/NBA_2021_rookies.html):
 Includes all the rookies' current stats (detailed) like points per game, field goal percentage, three point percentage, etc. There are 60 rows and 22 columns.
 This data set can be used to answer the "Are offensive or defensive players more likely to get ROTY?" because it includes stats on defensive rebounds, steals, blocks (which a positive number indicates they are a defensive player). Positive and high stats on 3 pointers, field goal attempts, would indicate more of an

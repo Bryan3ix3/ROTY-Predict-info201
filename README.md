@@ -2,7 +2,7 @@
 *By Ali Al-Shimari, Daniel Baek, Bryan Chucha, Kristi Nguyen, Brian Yoo*
 ## Domain of interest: NBA Stats
 
-**Why are you interested in this field/domain?** \
+**Why are you interested in this field/domain?** 
 We are interested in predicting who will be rookie of the year (ROTY) based on current rookie stats.
 
 **What other examples of data driven project have you found related to this domain (share at least 3)?**\

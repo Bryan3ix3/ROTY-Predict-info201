@@ -38,5 +38,5 @@ Includes all the rookies' stats, but unlike the first link, it includes a rankin
 * A file that calculates summary information to be included in your report (Ali)
 * A file that creates a table of summary information to be included in your report ()
 * A file that creates your first chart (Kristi)
-* A file that creates your second chart ()
+* A file that creates your second chart (Daniel)
 * A file that creates your third chart ()

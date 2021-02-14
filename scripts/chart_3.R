@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 library(styler)
 library(tidyverse)
 library(ggplot2)
@@ -23,3 +24,6 @@ ggplot(data = count_of_diff_years_from_0, aes(x = Var1, y = Freq,
   ggtitle("Counts of how far ROTYs were from draft pick 1") +
   xlab("Places from 1") + ylab("ROTYs") + 
   theme(legend.position = "none")
+=======
+
+>>>>>>> 491c3147ddb4cd1bd32b71ad594f557d366b4bcb

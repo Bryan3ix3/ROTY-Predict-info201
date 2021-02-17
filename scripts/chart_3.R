@@ -1,11 +1,13 @@
-<<<<<<< HEAD
+library(lintr)
 library(styler)
 library(tidyverse)
 library(ggplot2)
 library(reshape2)
 
 # reads historical data of ROTY's
-historic_stats <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/ROTY%20Historic%20Stats.csv?token=ASMBEZPX6V65RW3JY3YHSHTAGDJ3C")
+historic_stats <- read.csv("https://raw.githubusercontent.com/info201a-w21
+                           /project-luffyzor/main/Data/ROTY%20Historic%20Stats
+                           .csv?token=ASMBEZPX6V65RW3JY3YHSHTAGDJ3C")
 
 # making dataframe of every ROTY and their draft pick number
 df <- historic_stats[, c("YEAR", "DP")]
@@ -24,6 +26,4 @@ ggplot(data = count_of_diff_years_from_0, aes(x = Var1, y = Freq,
   ggtitle("Counts of how far ROTYs were from draft pick 1") +
   xlab("Places from 1") + ylab("ROTYs") + 
   theme(legend.position = "none")
-=======
 
->>>>>>> 491c3147ddb4cd1bd32b71ad594f557d366b4bcb

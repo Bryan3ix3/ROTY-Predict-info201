@@ -1,28 +1,54 @@
 ---
-title: "index/.Rmd"
+title: "Exploratory Analysis"
+author: "Ali Al-Shimari, Daniel Baek, Bryan Chucha, Kristi Nguyen, Brian Yoo"
+date: "2/17/2021"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("chart_1.R")
+source("chart_2.R")
+source("chart_3.R")
+source("summary.R")
 ```
 
-## R Markdown
+## Introduction
+We are interested in the criteria of the selection of the annual 'Rookie of the Year' (ROTY) of the NBA. In basketball, there are different types of statistics for a player: most importantly, total points, assists, rebounds. There are also percentage statistics like field goal percentage, which is the percentage of successful shots to attempted shots, or free throw percentage, which measure successful free throws to attempted free throw shots. We also have to consider their draft position (where they were drafted at). Players who played well in college will be drafted much earlier than players that didn't. We will put all these factors in consideration to find out which of them matter the most for ROTY. The datasets we will be looking at are historic NBA ones instead of current ones (2020-21 season) because it is not sensical to find trends among incomplete data, as the current season has not ended yet.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Summary
+Looking at the 2019 NBA rookie class, the highest points per game is
+`r ppg_df`. Points per game in basketball is singlehandedly the most distinguishing stat that differentiates players from each other. The highest field goal percentage is `r fg_percent_df`. It indicates how well a player can shoot. If they have high points per game, but their field goal percentage is low, it just says that they aren't a very accurate shooter, and only have high points because of the sheer amount of times they take shots.
+The highest three point percentage is `r three_pp_df`. Three point shots are difficult and high percentages are valued, but not crucial. A player can still rack up a ton of points without having a high three point percentage through free throws and normal two point shots or drives. Next, the highest free throw percentage is
+`r ft_df`. Most players have similar free throw percentages. Finally, the highest assists per game is `r assists_df`. It measures how many times a player passes the ball to a teammate in a way that leads to them scoring. These are the highest stats of the 2019 class and we noticed each of them were held by different players. The ROTY in this class was Ja Morant, who also had the highest assists, noted above.
 
+## Table
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
 summary(cars)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Chart 1
+```{r, echo=FALSE}
+points_plot
+percentage_plot
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The first scatter plot shows the points, assists, and rebounds per game of the 2019 class in correlation with their draft pick position. Based on the observed data, it can be seen that higher draft picks performed better than lower ones, with higher rebounds and points per game, but not assists. Points per game varied the most, with assists varying the least. We can see that draft pick does matter for how well a player will play (with a few anomalies).
+
+The second scatter plot shows the field goal and free throw percentage of the 2019 class in correlation with their draft pick position. Compared to the last graph, we can see that there is less variation, and a higher draft pick position isn't conducive to higher percentages. When comparing both field goal and free throw percentages, field goal percentages among all 50 players are more similar in value than the free throw ones.
+
+## Chart 2
+```{r, echo=FALSE}
+line_chart
+```
+
+This line chart graphs the stats (points, assists, rebounds per game) of historic players who won ROTY, from 1985 to 2019. It can be seen that points per game varies the most, with most ROTYs averaging about ~20 points. Rebounds have a higher average value than assists per game, which says that ROTYs tend to have higher rebounds than assists. From this data, we can get a general sense that most ROTYs have a high PPG around 20, rebounds around 8, and lower assists per game at around 5.
+
+## Chart 3
+```{r, echo=FALSE}
+bar_chart
+```
+
+This bar chart graphs the amount of historic ROTYs, from 1985 to 2019, and the difference between the number they were drafted at and 1. With the large amount of 0's, it can be inferred that most players who are drafted at number 1 go on to become ROTY. We can also see that there is a considerable size of players who were drafted at the 2nd place (5) and won ROTY. Therefore, draft pick does matter and higher draft picks (top 6) are very likely to become ROTY. There were only five other players who were outside of the 6th pick that became ROTY. The largest difference is one ROTY who was drafted at 36!

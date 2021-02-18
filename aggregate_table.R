@@ -3,7 +3,6 @@ library("knitr")
 NBA_rookies <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/ROTY%20Historic%20Stats.csv?token=ASMBEZPX6V65RW3JY3YHSHTAGDJ3C")
 
 # avgs of G, C, F
-# how many rookies needed to average at least 15 points and is a guard to win roy?
 avg_pos <- NBA_rookies %>% 
   group_by(POS) %>% 
   summarize(

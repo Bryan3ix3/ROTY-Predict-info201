@@ -5,7 +5,7 @@ library(ggplot2)
 library(reshape2)
 
 # reads stats of rookies of 2019
-rookie_stats_2019 <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/2019%20NBA%20Draft%20Rank.csv?token=ASMBEZPLPMPY376YTZLLSRDAGGPZU")
+rookie_stats_2019 <- read.csv("data/2019 NBA Draft Rank.csv")
 
 # makes dataframe of top 50 draft picks with assists, rebounds, points per game
 df <- rookie_stats_2019[1:50, c("Pk", "AST.G", "TRB.G", "PPG")]

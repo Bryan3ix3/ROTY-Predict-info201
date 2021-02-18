@@ -11,6 +11,7 @@ source("chart_1.R")
 source("chart_2.R")
 source("chart_3.R")
 source("summary.R")
+source("aggregate_table.R")
 ```
 
 ## Introduction
@@ -23,11 +24,30 @@ The highest three point percentage is `r three_pp_df`. Three point shots are dif
 `r ft_df`. Most players have similar free throw percentages. Finally, the highest assists per game is `r assists_df`. It measures how many times a player passes the ball to a teammate in a way that leads to them scoring. These are the highest stats of the 2019 class and we noticed each of them were held by different players. The ROTY in this class was Ja Morant, who also had the highest assists, noted above.
 
 ## Table
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```{r, include=FALSE}
+kable(rookies_2019_college)
 ```
+For the 2019 Rookies data, we renamed some columns for it to be more human readable and grouped the data by the 
+colleges the rookies went to. By doing this, we wanted to see if there was an improportionate amount of players
+coming from a select few schools in the 2019 class as it is more common for big name, popular 'basketball' schools to have players get drafted in the NBA. We found that it wasn't too disproportionate in terms of the colleges the
+players came from, with the most coming from schools with established basketball programs like Duke, Kentucky, UNC, with three players each. There were also a considerate amount of players who had no data, which meant they were came from schools abroad. 
+There are 8 international players in the 2019 class!
+
+```{r, include=FALSE}
+kable(historic_pos)
+```
+For the historic ROTYs data, we also renamed some columns for better readability and grouped the data by the positions the ROTY played. This data, unlike the previous table, is taken from ROTYs from 1985-2019, instead of being data from just one draft class. We wanted to see the breakdown of positions played by ROTYs and if a certain
+position was more likely to win. Sure enough, we found that most ROTYs are guards (G) at 19 players, and the least amount of them are centers at only 7 players. The center ROTYs averaged the most points, and the guards averaged the least points. 
+
+```{r, include=FALSE}
+kable(historic_tm)
+```
+For the historic ROTYs data, we decided to group the data by the team they played for. We wanted to know if being 
+on a certain team produced more ROTYs, and if a certain team had a disproportionate amount of ROTYs. Looking at
+the table, we can see the ROTYs are pretty evenly distributed across the teams, with the Chicago Bulls and
+Philadelpha 76ers with the most at 3 players. We came to the conclusion that the team didn't matter much when
+it came to winning ROTY. 
 
 ## Chart 1
 ```{r, echo=FALSE}

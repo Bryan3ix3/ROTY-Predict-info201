@@ -5,7 +5,7 @@ library(ggplot2)
 library(reshape2)
 
 # reads historical data of ROTY's
-historic_stats <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/ROTY%20Historic%20Stats.csv?token=ASMBEZPX6V65RW3JY3YHSHTAGDJ3C")
+historic_stats <- read.csv("data/ROTY Historic Stats.csv")
 
 # making dataframe of important stats
 df <- historic_stats[, c("YEAR", "PPG", "AST", "REB")]

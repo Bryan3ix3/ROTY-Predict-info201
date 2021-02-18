@@ -4,7 +4,7 @@ library(tidyverse)
 library(ggplot2)
 
 # reads historical data of ROTY's
-historic_stats <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/ROTY%20Historic%20Stats.csv?token=ASMBEZNVIEQBG5HP2OKF6ETAHAEJE")
+historic_stats <- read.csv("data/ROTY Historic Stats.csv")
 
 # making dataframe of every ROTY and their draft pick number
 df <- historic_stats[, c("YEAR", "DP")]

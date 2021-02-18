@@ -19,7 +19,7 @@ count_of_diff_years_from_0 <- as.data.frame(table(df$dp_diff))
 
 # plots frame into bar chart
 bar_chart <- ggplot(data = count_of_diff_years_from_0, aes(x = Var1,
-                                                           y = Freq, fill = Var1)) + geom_bar(stat = "identity") +
+  y = Freq, fill = Var1)) + geom_bar(stat = "identity") +
   ggtitle("ROTYs based on draft pick number") +
   xlab("Places from 1 (1st draft place)") + ylab("ROTYs") +
   theme(legend.position = "none") +

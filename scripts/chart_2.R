@@ -1,3 +1,4 @@
+library(lintr)
 library(styler)
 library(tidyverse)
 library(ggplot2)
@@ -15,5 +16,6 @@ df_melt <- reshape2::melt(df, id.var = "YEAR")
 
 # line graph
 ggplot(df_melt, aes(x = YEAR, y = value, colour = variable)) +
-  geom_line() + xlab("Year") + ylab("Points") + labs(color = "Stats")
-
+  geom_line(size = 1) + xlab("Year") + ylab("Points") + labs(color = "Stats") +
+  ggtitle("Historic ROTY stats") +
+  theme(plot.title = element_text(hjust = 0.5))

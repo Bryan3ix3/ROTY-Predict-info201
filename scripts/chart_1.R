@@ -39,6 +39,3 @@ percentage_plot <- ggplot(df_melt2, aes(x = factor(Pk), y = value,
   scale_color_manual(name = "Percentage Stats",
     values = c("orchid2", "cyan3"),
     labels = c("Field Goal", "Free Throw"))
-
-print(percentage_plot)
-print(points_plot)

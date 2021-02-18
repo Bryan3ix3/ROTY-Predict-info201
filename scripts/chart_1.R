@@ -22,11 +22,12 @@ head(df2)
 df_melt2 <- reshape2::melt(df2, id.var = 'Pk')
 
 #plots assists, rebounds, points per game
-ggplot(df_melt, aes(x = factor(Pk), y= value, colour = variable)) + 
+points_plot <- ggplot(df_melt, aes(x = factor(Pk), y= value, colour = variable)) + 
   geom_point() + xlab('Draft Pick') + labs(color = "Stats")
 labs(color = "Percentage Stats")
+
 #plots field goal and free throw percentages
-ggplot(df_melt2, aes(x = factor(Pk), y= value, colour = variable)) + 
+percentage_plot <- ggplot(df_melt2, aes(x = factor(Pk), y= value, colour = variable)) + 
   geom_point(size=2) + xlab('Draft Pick')  +
   scale_color_manual(name="Percentage Stats",
                      values=c("orchid2","cyan3"),

@@ -30,13 +30,3 @@ Quite similar to the first data set, but includes which number they were drafted
 Includes all the rookies' stats, but unlike the first link, it includes a ranking of each NBA rookie in their respective draft class based on all of their current stats which is factored into a scoring system. This can serve as a framework as we evaluate which stats are the most important to evaluate most accurately how to predict rookie of the year. There are 54 rows and 16 columns. This data set would answer the "How important is PPG in relation to ROTY?" because it provides stats on the rookies' points per game.
 
 *All of the data from these websites are third party websites who collect data from the NBA's official site, (which posts updated stats for every NBA game), and condense it. We did not choose to download directly from the NBA official website because of HTML coding problems which makes the data difficult to download from.
-
-## Exploratory Analysis
-### Team Member Responsibilities
-
-* An index.Rmd file that renders your report (Kristi)
-* A file that calculates summary information to be included in your report (Ali)
-* A file that creates a table of summary information to be included in your report ()
-* A file that creates your first chart (Kristi)
-* A file that creates your second chart ()
-* A file that creates your third chart (Daniel)

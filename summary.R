@@ -2,7 +2,7 @@ library(tidyverse)
 library(lintr)
 library(styler)
 
-nba_rookies <- read.csv("https://raw.githubusercontent.com/info201a-w21/project-luffyzor/main/Data/2019%20NBA%20Draft%20Rank.csv?token=AOSFANWDUZT5ICJD46M2B43AGSXTQ")
+nba_rookies <- read.csv("Data/2019 NBA Draft Rank.csv")
 nba_rookies <- na.omit(nba_rookies)
 
 # calculates 2019 rookie with highest PPG
@@ -43,12 +43,14 @@ assist_per_game <- nba_rookies %>%
   select(AST.G) %>%
   sum(na.rm = T)
 highest_assist_per_game <- nba_rookies$Player[nba_rookies$AST.G ==
-                                                assist_per_game]
+  assist_per_game]
 assists_df <- paste(assist_per_game, "by", highest_assist_per_game)
 
 summary <-
-  list("Highest Points per game" = ppg_df,
-       "Highest Field goal percentage" = fg_percent_df,
-       "Highest Three point percentage" = three_pp_df,
-       "Highest Free throw percentage" = ft_df,
-       "Highest Assists per game" = assists_df)
+  list(
+    "Highest Points per game" = ppg_df,
+    "Highest Field goal percentage" = fg_percent_df,
+    "Highest Three point percentage" = three_pp_df,
+    "Highest Free throw percentage" = ft_df,
+    "Highest Assists per game" = assists_df
+  )

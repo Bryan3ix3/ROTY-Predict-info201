@@ -54,7 +54,7 @@ it came to winning ROTY.
 
 
 ## Chart 1
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 points_plot
 percentage_plot
 ```

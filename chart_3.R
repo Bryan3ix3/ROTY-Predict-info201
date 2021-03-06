@@ -24,3 +24,5 @@ bar_chart <- ggplot(data = count_of_diff_years_from_0, aes(x = Var1,
   xlab("Places from 1 (1st draft place)") + ylab("ROTYs") +
   theme(legend.position = "none") +
   theme(plot.title = element_text(hjust = 0.5))
+
+print(bar_chart)

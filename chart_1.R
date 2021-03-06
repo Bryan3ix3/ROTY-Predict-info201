@@ -28,8 +28,9 @@ points_plot <- ggplot(df_melt, aes(x = factor(Pk), y = value,
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_color_manual(name = "Points Stats",
     values = c("maroon2", "green", "dodgerblue1"),
-    labels = c("Assists", "Rebounds", "Points Per Game"))
-
+    labels = c("Assists", "Rebounds", "Points Per Game")) +
+  theme(axis.text.x = element_text(angle = 65), axis.ticks = element_blank())
+print(points_plot)
 # plots field goal and free throw percentages
 percentage_plot <- ggplot(df_melt2, aes(x = factor(Pk), y = value,
   colour = variable)) + geom_point(size = 2) + xlab("Draft Pick") +
@@ -38,4 +39,5 @@ percentage_plot <- ggplot(df_melt2, aes(x = factor(Pk), y = value,
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_color_manual(name = "Percentage Stats",
     values = c("orchid2", "cyan3"),
-    labels = c("Field Goal", "Free Throw"))
+    labels = c("Field Goal", "Free Throw")) +
+  theme(axis.text.x = element_text(angle = 65))

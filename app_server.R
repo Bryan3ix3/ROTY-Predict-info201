@@ -231,4 +231,4 @@ server <- function(input, output) {
     ggplotly(my_plot) # What makes a chart interactive
   })
 }
-shinyApp(ui = ui, server = server)
+#shinyApp(ui = ui, server = server)

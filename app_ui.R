@@ -7,7 +7,7 @@ library(rsconnect)
 library("styler")
 library("lintr")
 
-source("app_server1.R")
+source("app_server.R")
 
 # Define Widgets (shiny widget library here)
 stats_input <- selectInput(
@@ -111,7 +111,13 @@ two <- tabPanel(
                   tabPanel("First Season Stats Scatterplot",
                           plotlyOutput(outputId = "scatterplot3")),
                   tabPanel("First Season Ratio of PPG to 3P% Scatterplot",
-                           plotlyOutput(outputId = "scatterplot5"))
+                           plotlyOutput(outputId = "scatterplot5"),
+       p("This chart shows the raito between points made per game and the percentage of 3-pointers
+       made for each rookie. As the game of basketball is changing and the 3-point shot being
+       more prevalant in games, we wanted to see how a rookie's 3-point percentage compared
+       to their points per game and overall their position to win ROTY. From this graph,
+       we can see that the rookie with the highest highest ratio of 3-pointers and points per game
+       was actually not the ROTY."))
       )
   ),
 )

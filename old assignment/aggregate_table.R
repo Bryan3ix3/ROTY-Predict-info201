@@ -4,8 +4,8 @@ library(dplyr)
 library(styler)
 library(lintr)
 
-rookie_stats_2019 <- read.csv("data/2019 NBA Draft Rank.csv")
-historic_stats <- read.csv("data/ROTY Historic Stats.csv")
+rookie_stats_2019 <- read.csv("Data/2019 NBA Draft Rank.csv")
+historic_stats <- read.csv("Data/ROTY Historic Stats.csv")
 
 # Renamed Columns
 colnames(rookie_stats_2019)[colnames(rookie_stats_2019) == "Pk"] <- "Pick"

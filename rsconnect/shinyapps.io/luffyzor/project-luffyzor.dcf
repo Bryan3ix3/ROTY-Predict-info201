@@ -5,6 +5,6 @@ account: luffyzor
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3744854
-bundleId: 4311794
+bundleId: 4314143
 url: https://luffyzor.shinyapps.io/project-luffyzor/
-when: 1615107613.93582
+when: 1615168146.0629

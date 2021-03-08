@@ -6,10 +6,11 @@ library(plotly)
 library(rsconnect)
 library("styler")
 library("lintr")
+library(shinythemes)
 
 source("app_server.R")
 
-# Define Widgets (shiny widget library here)
+# Define Widgets
 stats_input <- selectInput(
   inputId = "stats",
   choices = df_melt$variable,
@@ -72,22 +73,55 @@ color_input <- radioButtons(
   choiceNames = list("Purple", "Green", "Blue"),
   label = "Choose a color"
 )
+color_fill_bar <- radioButtons(
+  inputId = "barcolor",
+  choiceValues = c("#FF6666", "#33FFDA", "#7BC7F8"),
+  choiceNames = list("Salmon", "Teal", "Cyan"),
+  label = "Choose a color"
+)
+#------------------------------------------------------------------------------
 
-# Define structure of tabs (aka pages) -- must make 2 tabs
+# Pages
+
 one <- tabPanel(
-  "Historic ROTY",             #title of the page, what will appear as the tab name
-  sidebarLayout(             
-    sidebarPanel( 
-      # left side of the page 
-      # insert widgets or text here -- their variable name(s), NOT the raw code
+  "Historic ROTY",
+  sidebarLayout(
+    sidebarPanel(
       stats_input,
-      size_input
-    ),           
-    mainPanel(                # typically where you place your plots + texts
-      # insert chart and/or text here -- the variable name NOT the code
-      plotlyOutput(outputId = "scatterplot"),
-      br(),
-    )))
+      size_input,
+      h4("For Use with only Bar Chart tab"),
+      color_fill_bar
+    ),
+    mainPanel(
+      tabsetPanel(
+        type = "tabs",
+        tabPanel(
+          "Historic ROTY Stats Scatterplot",
+          plotlyOutput(outputId = "scatterplot"),
+          br(),
+          p("Graph plots respective statistic you choose using Historic ROTY
+          data from 1985 to 2019. ROTYs consistently
+    average about ~30 points per game (PPG), and their total rebounds had a
+    higher average value than assists at ~8 compared to ~5.")
+        ),
+        tabPanel(
+          "ROTYs Draft Pick # Bar Chart",
+          plotlyOutput(outputId = "barchart"),
+          br(),
+          p("Bar chart graphs the amount of historic ROTYs, from 1985 to 2019,
+          and the difference between the number they were drafted at and 1.
+          With the large amount of 0's, most players who are
+        drafted at number 1 go on to become ROTY. There is also
+        a considerable size of players who were drafted at the 2nd place
+        and won ROTY. Therefore, draft pick does matter and higher draft picks
+        (top 6) are very likely to become ROTY. There were only five other
+        players who were outside of the 6th pick that became ROTY from
+        1985-2019. The largest difference is one ROTY who was drafted at 36.")
+        )
+      )
+    ),
+  )
+)
 
 two <- tabPanel(
   "2019-2020 NBA Rookies",
@@ -99,28 +133,64 @@ two <- tabPanel(
       color_input,
       h4("For Use with only Ratio tabs"),
       size_input4
-      ),
+    ),
     mainPanel(
-      tabsetPanel(type = "tabs",
-                  tabPanel("Career Advanced Statistics Table",
-                           DT::dataTableOutput("table1")),
-                  tabPanel("Career Stats Scatterplot",
-                          plotlyOutput(outputId = "scatterplot2")),
-                  tabPanel("First Season Advanced Statistics Table",
-                          DT::dataTableOutput("table2")),
-                  tabPanel("First Season Stats Scatterplot",
-                          plotlyOutput(outputId = "scatterplot3")),
-                  tabPanel("First Season Ratio of PPG to 3P% Scatterplot",
-                           plotlyOutput(outputId = "scatterplot5"),
-       p("This chart shows the raito between points made per game and the percentage of 3-pointers
-       made for each rookie. As the game of basketball is changing and the 3-point shot being
-       more prevalant in games, we wanted to see how a rookie's 3-point percentage compared
-       to their points per game and overall their position to win ROTY. From this graph,
-       we can see that the rookie with the highest highest ratio of 3-pointers and points per game
-       was actually not the ROTY."))
+      tabsetPanel(
+        type = "tabs",
+        tabPanel(
+          "Career Advanced Statistics Table",
+          DT::dataTableOutput("table1"),
+          br(),
+          p("Table shows the individual career stats of 2019 rookies as well
+          as the calculate z scores for WS/48, BPM, and VORP. The eScore is the
+          total of all z scores of those advanced stats."),
+          p("WS/48: Win Shares Per 48 minutes. Determines how much a player
+          contributes to a win. Considers what the player does in a game to win
+          or lose it, and then weighs them respectively to give a win Share."),
+          p("BPM: Box Plus Minus. Box score estimate of the points per 100
+          possessions a player contributed above a player above the
+            league-average."),
+          p("VORP: Value over Replacement Player. Box score estimate of the
+          points per 100 team possessions a player contributed above a player
+            above a replacement-level player.")
+        ),
+        tabPanel(
+          "Career Stats Scatterplot",
+          plotlyOutput(outputId = "scatterplot2"),
+          br(),
+          p("Graph plots respective statistic you choose using 2019 rookies
+            career stats data.")
+        ),
+        tabPanel(
+          "First Season Advanced Statistics Table",
+          DT::dataTableOutput("table2"),
+          br(),
+          p("Table shows the calculated z scores for individual stats and
+          the iScore is the total of those z scores.")
+        ),
+        tabPanel(
+          "First Season Stats Scatterplot",
+          plotlyOutput(outputId = "scatterplot3"),
+          br(),
+          p("Graph plots respective statistic you choose using 2019 rookies
+            first season stats data.")
+        ),
+        tabPanel(
+          "First Season Ratio of PPG to 3P% Scatterplot",
+          plotlyOutput(outputId = "scatterplot5"),
+          br(),
+          p("This chart shows the ratio between points made per game and the
+          percentage of 3-pointer made for each rookie. As the game of
+          basketball is changing and the 3-point shot being
+       more prevalant in games, we wanted to see how a rookie's 3-point
+       percentage compared
+       to their points per game and overall their position to win ROTY. From
+       this graph, we can see that the rookie with the highest highest ratio
+       of 3-pointers and points per game was actually not the ROTY.")
+        )
       )
-  ),
-)
+    ),
+  )
 )
 
 three <- tabPanel(
@@ -133,33 +203,120 @@ three <- tabPanel(
       h4("For use with face tab"),
       player_input
     ),
-  mainPanel(
-    tabsetPanel(type = "tabs",
-                tabPanel("Season Advanced Statistics Table",
-                         DT::dataTableOutput("table3")),
-                tabPanel("Season Stats Scatterplot",
-                         plotlyOutput(outputId = "scatterplot4")),
-                tabPanel("I want to see rookie face",
-                         uiOutput("img1")),
-                         DT::dataTableOutput("table4"))
-                ),
+    mainPanel(
+      tabsetPanel(
+        type = "tabs",
+        tabPanel(
+          "Season Advanced Statistics Table",
+          DT::dataTableOutput("table3"),
+          br(),
+          p("Table shows the z scores of individual career stats of 2020
+          rookies as well as the calculate z scores for WS/48, BPM, and VORP.
+          The iScore is the sum of total z scores of individual stats
+        (FG%, FT%, PPG, REB, AST), while the eScore is the sum of advanced
+            stats (WS/48, BPM, and VORP).")
+        ),
+        tabPanel(
+          "Season Stats Scatterplot",
+          plotlyOutput(outputId = "scatterplot4"),
+          br(),
+          p("Graph plots respective statistic you choose using 2020 rookies
+            career stats data.")
+        ),
+        tabPanel(
+          "I want to see rookie face",
+          uiOutput("img1")
+        ),
+        DT::dataTableOutput("table4")
+      )
+    ),
   )
 )
 
-
-
-four <- tabPanel(
-  "Title" 
+intro <- tabPanel(
+  "Introduction",
+  titlePanel(
+    h1("Who will be 2021's NBA Rookie of the Year?", align = "center")
+  ),
+  br(),
+  sidebarPanel(
+    p("This shiny app seeks to predict NBA rookie of the year (ROTY) based on
+    current rookie stats. First, we analyzed historic ROTY (1985 - present)
+    stats to determine their general trend. Points per game were the highest,
+    then assists, and rebounds. It confirms the
+    fact that PPG is the most important stat to determine ROTY, as none of them
+    had higher assists  or rebounds per game than PPG.", style =
+        "font-size:15px;"),
+    p("There is also a bar chart visualizing how many and far ROTYs were from
+    the first draft place. We foundthat most ROTYs were top 6 draft picks. Draft
+    pick does matter, but even combined with looking at the Historic ROTY stats,
+    ROTY for the current season cannot be accurately predicted, as there is no
+      formula.", style = "font-size:15px;"),
+    p("Next, we thought it would
+    also be useful to  analyze data for the rookies of a single season. We will
+    be calculating the z scores instead of just looking at how many PPG/AST/REB/
+    etc that the top contenders for ROTY had, because a player having 20 PPG
+    doesn't tell us as much as a z score would, which will give us a better idea
+    of how far the PPG is from the mean, and be more useful to analyze the data
+    based on z scores and sum the z scores up.", style = "font-size:15px;"),
+    p("There are two total z scores we need to calculate. We chose to analyze
+    2019-2020 rookies, the most recent complete
+    season, and looked at both the datasets of career stats, which is including
+    stats not just for  their first season but the current season, and the
+    first season stats. We did this because the career dataset was the only
+    one that included
+    WS/48, BPM, VORP stats, which we need to calculate the 'z' score of
+    all-encompassing statistics. The first season dataset is more relevant to
+    our question, which is why individual statistics z scores were calculated
+    only for this dataset, iScore, (points per game, field goal percentage,
+    three point percentage, free throw percentage, assists, and rebounds.",
+      style = "font-size:15px;"),
+    p("Sure enough, the person with the highest total z score for individual
+    statistics is Ja Morant, who won ROTY for that season. Looking at the total
+    z-score for
+    all-encompassing statistics (eScore), the player with the most is Zion
+    Williamson, but Ja still has a high eScore in 4th place. From this, we
+    can determine that to find ROTY, they should have the highest total iScore
+    and a high eScore. Therefore, we will use the z score system to determine
+    who will be ROTY for the current NBA season while using the 2020-21 rookie
+    stats dataset.", style = "font-size:15px;")
+  ),
+  mainPanel(
+    HTML('<center><img src="ROTY.jpg" width="1200"></center>')
+  ),
 )
 
-five <- tabPanel(
-  "Summary/Takeaways" 
+
+
+summary <- tabPanel(
+  "Conclusion",
+  titlePanel(
+    h1("And the crowned rookie for 2020 is...", align = "center")
+  ),
+  sidebarPanel(
+    HTML('<left><img src="lamelo.png" width="400"></left>')
+  ),
+  mainPanel(
+    p("Lamelo Ball! Through our analysis and calculation of z scores, he had 
+      the highest individual stat z score for points per game, rebounds,
+      assists, field goal percentage, free throw percentage, and 3 point
+      percentage. His all-encompassing stats z score total is also the highest
+      out of all rookies for the most recent draft class."),
+    p("Here was our criteria for ROTY."),
+    h4("1. Drafted in the top 6"),
+    h4("2. Highest 'iScore', high 'eScore'"),
+    h4("3. High z score for PPG (much greater than 0)")
+  ),
 )
 
-# Define the UI and what pages/tabs go into it
+#------------------------------------------------------------------------------
+# Defines UI
 ui <- navbarPage(
-  "Final Project", 
+  theme = shinytheme("united"),
+  "Final Project",
+  intro,
   one,
   two,
-  three
+  three,
+  summary
 )

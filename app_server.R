@@ -21,12 +21,12 @@ rookies_2019_pics <- read.csv("Data/NBA 2020 Rookies_Pics.csv")
 rookies_season_2020 <- read.csv("Data/NBA 2020 Rookies.csv")
 rookies_names_2020 <- read.csv("Data/Revised_NBA 2020 Rookies.csv")
 
-names(rookie_draft_2019)[10] <- "FG%"
-names(rookie_draft_2019)[11] <- "3P%"
-names(rookie_draft_2019)[12] <- "FT%"
-names(rookie_draft_2019)[15] <- "REB"
-names(rookie_draft_2019)[16] <- "AST"
-names(rookie_draft_2019)[21] <- "WSper48z"
+names(rookie_draft_2019)[9] <- "FG%"
+names(rookie_draft_2019)[10] <- "3P%"
+names(rookie_draft_2019)[11] <- "FT%"
+names(rookie_draft_2019)[14] <- "REB"
+names(rookie_draft_2019)[15] <- "AST"
+names(rookie_draft_2019)[20] <- "WSper48z"
 
 names(rookie_names_2019)[10] <- "FG%"
 names(rookie_names_2019)[11] <- "3P%"
@@ -43,22 +43,26 @@ names(rookie_season_2019)[13] <- "3P%z"
 names(rookie_season_2019)[14] <- "FT%z"
 
 # renames 2020 rookies single season stats columns
-names(rookies_season_2020)[4] <- "FG%"
-names(rookies_season_2020)[5] <- "3P%"
-names(rookies_season_2020)[6] <- "FT%"
-names(rookies_season_2020)[13] <- "FG%z"
-names(rookies_season_2020)[14] <- "3P%z"
-names(rookies_season_2020)[15] <- "FT%z"
-names(rookies_season_2020)[19] <- "WSper48z"
-
+names(rookies_season_2020)[5] <- "FG%"
+names(rookies_season_2020)[6] <- "3P%"
+names(rookies_season_2020)[7] <- "FT%"
+names(rookies_season_2020)[14] <- "FG%z"
+names(rookies_season_2020)[15] <- "3P%z"
+names(rookies_season_2020)[16] <- "FT%z"
+names(rookies_season_2020)[20] <- "WSper48z"
 names(important_names_rookies)[2] <- "player"
+
+#------------------------------------------------------------------------------
+# Makes Data Frames
 
 df <- historic_rookies[c("YEAR", "FG", "PPG", "REB", "AST", "BLK", "DP")]
 df_melt <- reshape2::melt(df, id.var = "YEAR")
 df_melt$player <- important_names_rookies$player
 
-df2 <- rookie_names_2019[1:50, c("Pk", "PPG", "FG%", "3P%", "FT%", "AST",
-                                 "REB")]
+df2 <- rookie_names_2019[1:50, c(
+  "Pk", "PPG", "FG%", "3P%", "FT%", "AST",
+  "REB"
+)]
 
 df2_melt <- reshape2::melt(df2, id.var = "Pk")
 df2_melt$player <- rookie_names_2019$Player[1:50]
@@ -68,15 +72,21 @@ df3 <- rookie_draft_2019[1:50, c(
   "BPMz", "VORPz", "eScore"
 )]
 
-df4 <- rookie_season_2019[1:50, c("Rk", "PPG", "FG%", "3P%", "FT%", "AST",
-                                  "REB")]
-df4_table <- rookie_season_2019[1:50, c("Rk", "Player", "FG%z", "3P%z", "FT%z",
-                                        "PPGz", "REBz", "ASTz", "iScore")]
+df4 <- rookie_season_2019[1:50, c(
+  "Rk", "PPG", "FG%", "3P%", "FT%", "AST",
+  "REB"
+)]
+df4_table <- rookie_season_2019[1:50, c(
+  "G", "Player", "FG%z", "3P%z", "FT%z",
+  "PPGz", "REBz", "ASTz", "iScore"
+)]
 
-df5 <- rookies_season_2020[1:46, c("Pk", "PPG", "FG%", "3P%", "FT%", "AST",
-                                   "REB")]
+df5 <- rookies_season_2020[1:46, c(
+  "Pk", "PPG", "FG%", "3P%", "FT%", "AST",
+  "REB"
+)]
 df5_table <- rookies_season_2020[1:46, c(
-  "Pk", "Tm", "Player", "FG%z", "3P%z", "FT%z", "PPGz", "REBz", "ASTz",
+  "Pk", "Tm", "Player", "G", "FG%z", "3P%z", "FT%z", "PPGz", "REBz", "ASTz",
   "WSper48z", "BPMz", "VORPz", "iScore", "eScore"
 )]
 
@@ -87,6 +97,14 @@ df5_melt$player <- rookies_names_2020$Player[1:46]
 # melts data based on combined z score rank
 df4_melt <- reshape2::melt(df4, id.var = "Rk")
 df4_melt$player <- rookie_season_2019_names$Player[1:50]
+
+# historic ROTY from 1st DP
+df6 <- historic_rookies[, c("YEAR", "DP")]
+head(df6)
+df6$dp_diff <- df$DP - 1
+count_of_diff_years_from_0 <- as.data.frame(table(df6$dp_diff))
+#------------------------------------------------------------------------------
+# Graphs and Tables
 
 server <- function(input, output) {
   # scatterplot stats for historic ROTY
@@ -143,6 +161,7 @@ server <- function(input, output) {
     DT::datatable(df3[, c(2:12), drop = FALSE])
   })
 
+  # Makes scatterplot for 2019 rookies first season stats
   output$scatterplot3 <- renderPlotly({
     new_df <- df4_melt %>%
       filter(variable == input$stats2) %>%
@@ -166,27 +185,34 @@ server <- function(input, output) {
     ggplotly(my_plot)
   })
 
+  # Makes table for Rookie Season 2019 z score stats
   output$table2 <- DT::renderDataTable({
     DT::datatable(df4_table[, , drop = FALSE])
   })
 
+  # outputs image for respective player chosen
   output$img1 <- renderUI({
-    img(src = rookies_2019_pics[rookies_2019_pics$Player == input$player,
-                                "url"])
+    img(src = rookies_2019_pics[
+      rookies_2019_pics$Player == input$player,
+      "url"
+    ])
   })
 
+  # Makes table for z scores of 2020 Rookie Stats
   output$table3 <- DT::renderDataTable({
     DT::datatable(df5_table[, , drop = FALSE])
   })
 
-  df5_temp <- rookies_season_2020[, c("Pk", "Player", "PPG", "FG%", "3P%",
-                                      "FT%", "AST", "REB")]
-  # individual 2019 rookie stats
+  # Makes table of 2020 rookie stats
   output$table4 <- DT::renderDataTable({
+    df5_temp <- rookies_season_2020[, c(
+      "Pk", "Player", "G", "PPG", "FG%", "3P%",
+      "FT%", "AST", "REB"
+    )]
     subset(df5_temp, df5_temp$Player == input$player)
   })
 
-  # 2020 Rookie Stats
+  # Makes scatterplot of 2020 Rookie Stats
   output$scatterplot4 <- renderPlotly({
     new_df <- df5_melt %>%
       filter(variable == input$stats3) %>%
@@ -211,7 +237,7 @@ server <- function(input, output) {
     ggplotly(my_plot)
   })
 
-  # daniels chart
+  # daniels scatterplot chart
   output$scatterplot5 <- renderPlotly({
     filtered_data <- rookie_season_2019[, c("PPG", "3P%")] %>%
       filter(PPG >= input$size4)
@@ -229,6 +255,21 @@ server <- function(input, output) {
       theme(plot.title = element_text(hjust = 0.5), legend.position = "none")
 
     ggplotly(my_plot) # What makes a chart interactive
+  })
+
+  # Makes bar chart of ROTY draft pick position from 1
+  output$barchart <- renderPlotly({
+    bar_chart <- ggplot(data = count_of_diff_years_from_0) +
+      geom_bar(
+        mapping = aes_string(x = "Var1", y = "Freq"),
+        stat = "identity", fill = input$barcolor
+      ) +
+      ggtitle("ROTYs based on draft pick number") +
+      xlab("Places from 1 (1st draft place)") +
+      ylab("ROTYs") +
+      theme(legend.position = "none") +
+      theme(plot.title = element_text(hjust = 0.5))
+    ggplotly(bar_chart)
   })
 }
 #shinyApp(ui = ui, server = server)

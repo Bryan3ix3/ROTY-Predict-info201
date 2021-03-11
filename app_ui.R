@@ -14,24 +14,24 @@ source("app_server.R")
 stats_input <- selectInput(
   inputId = "stats",
   choices = df_melt$variable,
-  label = "Choose a statistic to visualize***",
+  label = HTML("<FONT color='orange'>Choose a statistic to visualize**</FONT>"),
 )
 
 stats_input2 <- selectInput(
   inputId = "stats2",
   choices = df2_melt$variable,
-  label = "Choose a statistic to visualize***",
+  label = HTML("<FONT color='orange'>Choose a statistic to visualize**</FONT>"),
 )
 
 stats_input3 <- selectInput(
   inputId = "stats3",
   choices = df5_melt$variable,
-  label = "Choose a statistic to visualize***",
+  label = HTML("<FONT color='orange'>Choose a statistic to visualize**</FONT>"),
 )
 
 size_input <- sliderInput(
   inputId = "size",
-  label = "Set the point size",
+  label = HTML("<FONT color='green'>Set the point size</FONT>"),
   min = 1,
   max = 10,
   value = 1
@@ -39,7 +39,7 @@ size_input <- sliderInput(
 
 size_input2 <- sliderInput(
   inputId = "size2",
-  label = "Set Point Size",
+  label = HTML("<FONT color='green'>Set the point size</FONT>"),
   min = 1,
   max = 24,
   value = 1
@@ -47,7 +47,7 @@ size_input2 <- sliderInput(
 
 size_input3 <- sliderInput(
   inputId = "size3",
-  label = "Set the point size",
+  label = HTML("<FONT color='green'>Set the point size</FONT>"),
   min = 1,
   max = 19,
   value = 2
@@ -55,7 +55,7 @@ size_input3 <- sliderInput(
 
 size_input4 <- sliderInput(
   inputId = "size4",
-  label = "Minimum Points Per Game",
+  label = HTML("<FONT color='purple'>Minimum Points Per Game</FONT>"),
   min = 1,
   max = 24,
   value = 1
@@ -64,23 +64,23 @@ size_input4 <- sliderInput(
 player_input <- selectInput(
   inputId = "player",
   choices = rookies_2019_pics$Player,
-  label = "Choose a rookie (Top 20 Draft Picks)",
+  label = HTML("<FONT color='red'>Choose a rookie (Top 20 Draft Picks)</FONT>")
 )
 
 color_input <- radioButtons(
   inputId = "color",
   choiceValues = c("purple2", "green", "dodgerblue1"),
   choiceNames = list("Purple", "Green", "Blue"),
-  label = "Choose a color"
+  label = HTML("<FONT color='blue'>Choose a color</FONT>")
 )
+
 color_fill_bar <- radioButtons(
   inputId = "barcolor",
   choiceValues = c("#FF6666", "#33FFDA", "#7BC7F8"),
   choiceNames = list("Salmon", "Teal", "Cyan"),
-  label = "Choose a color"
+  label = HTML("<FONT color='blue'>Choose a color</FONT>")
 )
 #------------------------------------------------------------------------------
-
 # Pages
 
 one <- tabPanel(
@@ -89,7 +89,7 @@ one <- tabPanel(
     sidebarPanel(
       stats_input,
       size_input,
-      h4("For Use with only Bar Chart tab"),
+      h5("For Use with only Bar Chart tab"),
       color_fill_bar
     ),
     mainPanel(
@@ -127,11 +127,11 @@ two <- tabPanel(
   "2019-2020 NBA Rookies",
   sidebarLayout(
     sidebarPanel(
-      h4("For Use with only Scatterplot tabs"),
+      h5("For Use with only Scatterplot tabs"),
       stats_input2,
       size_input2,
       color_input,
-      h4("For Use with only Ratio tabs"),
+      h5("For Use with only Ratio tabs"),
       size_input4
     ),
     mainPanel(
@@ -195,15 +195,33 @@ two <- tabPanel(
 
 three <- tabPanel(
   "2020-2021 NBA Rookies",
+  tags$head(
+    tags$style("p {color:#fc5603}")
+  ),
   sidebarLayout(
     sidebarPanel(
-      h4("For Use with only Scatterplot tabs"),
+      h5("For Use with only Scatterplot tabs"),
       stats_input3,
       size_input3,
-      h4("For use with face tab"),
+      h5("For use with face tab"),
       player_input
     ),
     mainPanel(
+      tags$style(HTML("
+                    .dataTables_wrapper .dataTables_length, .dataTables_wrapper
+                    .dataTables_filter, .dataTables_wrapper .dataTables_info,
+                    .dataTables_wrapper .dataTables_processing,
+                    .dataTables_wrapper .dataTables_paginate {
+                    color: #ff8c00;
+                    }
+
+                    thead {
+                    color: #ff8c00;
+                    }
+
+                     tbody {
+                    color: #ff8c00;
+                    }")),
       tabsetPanel(
         type = "tabs",
         tabPanel(
@@ -235,6 +253,11 @@ three <- tabPanel(
 
 intro <- tabPanel(
   "Introduction",
+  tags$head(
+    tags$style("body {background-color: MidnightBlue}
+               h1 {color:white}
+               h4 {color:white}")
+  ),
   titlePanel(
     h1("Who will be 2021's NBA Rookie of the Year?", align = "center")
   ),
@@ -245,13 +268,15 @@ intro <- tabPanel(
     stats to determine their general trend. Points per game were the highest,
     then assists, and rebounds. It confirms the
     fact that PPG is the most important stat to determine ROTY, as none of them
-    had higher assists  or rebounds per game than PPG.", style =
-        "font-size:15px;"),
+    had higher assists  or rebounds per game than PPG.",
+      style =
+        "font-size:15px;"
+    ),
     p("There is also a bar chart visualizing how many and far ROTYs were from
-    the first draft place. We foundthat most ROTYs were top 6 draft picks. Draft
-    pick does matter, but even combined with looking at the Historic ROTY stats,
-    ROTY for the current season cannot be accurately predicted, as there is no
-      formula.", style = "font-size:15px;"),
+    the first draft place. We found that most ROTYs were top 6 draft picks.
+    Draft pick does matter, but even combined with looking at the Historic ROTY
+    stats, ROTY for the current season cannot be accurately predicted, as there
+    is no formula.", style = "font-size:15px;"),
     p("Next, we thought it would
     also be useful to  analyze data for the rookies of a single season. We will
     be calculating the z scores instead of just looking at how many PPG/AST/REB/
@@ -262,7 +287,7 @@ intro <- tabPanel(
     p("There are two total z scores we need to calculate. We chose to analyze
     2019-2020 rookies, the most recent complete
     season, and looked at both the datasets of career stats, which is including
-    stats not just for  their first season but the current season, and the
+    stats not just for their first season but the current season, and the
     first season stats. We did this because the career dataset was the only
     one that included
     WS/48, BPM, VORP stats, which we need to calculate the 'z' score of
@@ -270,12 +295,13 @@ intro <- tabPanel(
     our question, which is why individual statistics z scores were calculated
     only for this dataset, iScore, (points per game, field goal percentage,
     three point percentage, free throw percentage, assists, and rebounds.",
-      style = "font-size:15px;"),
+      style = "font-size:15px;"
+    ),
     p("Sure enough, the person with the highest total z score for individual
     statistics is Ja Morant, who won ROTY for that season. Looking at the total
     z-score for
     all-encompassing statistics (eScore), the player with the most is Zion
-    Williamson, but Ja still has a high eScore in 4th place. From this, we
+    Williamson, but Ja still has a high eScore at 4th place. From this, we
     can determine that to find ROTY, they should have the highest total iScore
     and a high eScore. Therefore, we will use the z score system to determine
     who will be ROTY for the current NBA season while using the 2020-21 rookie
@@ -291,21 +317,51 @@ intro <- tabPanel(
 summary <- tabPanel(
   "Conclusion",
   titlePanel(
-    h1("And the crowned rookie for 2020 is...", align = "center")
+    h1("And the crowned rookie for the 2020 NBA draft class is...",
+      align = "center"
+    )
   ),
   sidebarPanel(
     HTML('<left><img src="lamelo.png" width="400"></left>')
   ),
   mainPanel(
-    p("Lamelo Ball! Through our analysis and calculation of z scores, he had 
+    p("Lamelo Ball! Through our analysis and calculation of z scores, he had
       the highest individual stat z score for points per game, rebounds,
       assists, field goal percentage, free throw percentage, and 3 point
       percentage. His all-encompassing stats z score total is also the highest
       out of all rookies for the most recent draft class."),
     p("Here was our criteria for ROTY."),
     h4("1. Drafted in the top 6"),
+    p("From our ROTY Draft Pick bar chart, we found out that rookies drafted
+      in the top 6 were the most likely to become ROTY since there were only 5
+      rookies outside of that from 1985 to 2019. Lamelo was drafted 3rd by
+      the Charlotte Hornets."),
     h4("2. Highest 'iScore', high 'eScore'"),
-    h4("3. High z score for PPG (much greater than 0)")
+    p("The iScore is the total of the z scores of PPG/REB/AST/FG%/FT%/3P%, and
+      the one with the highest iScore won ROTY for 2019. The other top scorers
+      were also in consideration for ROTY, so we can safely assume that the
+      iScore would be an accurate measure for determining ROTY. The eScore is
+      the sum of z scores of WS/48/BPM/VORP, and this less acurately determines
+      ROTY, but is still important. The top rookies for 2019 scored high for
+      this metric. Having a high eScore but low iScore would not make you a
+      candidate for ROTY. Lamelo has the highest scores for these, at 9.46 and
+      6.49 respectively, with Tyrese Haliburton trailing a bit behind at 7.58
+      and 5.76. They are currently both the top contenders for ROTY on all
+      major sports networks and sports analysis sites!"),
+    h4("3. High z score for PPG (much greater than 0)"),
+    p("PPG is the most important factor for ROTY, and one cannot become it
+      without averaging high PPG, as we can see from analyzing ROTY historic
+      stats' scatterplot. Lamelo also the highest PPG z score at 2.62, with
+      Anthony Edwards in 2nd at 2.39."),
+    p("Thank you to Hashtag Basketball for providing us the idea of using z
+    scores to accurately calculate performance and Danny Leese's idea to
+      use all encompassing statistics. We did not use HOllinger's Player
+      Efficiency Rating
+      for the eScore because we wanted to look at the top ~50 rookies and there
+      are no PERs for all of them. For future references, we will narrow down
+      players with with PERs and use them for the eScore for higher accuracy,
+      but we would have to exclude those that don't have them."),
+    p("We hoped you enjoyed looking through this shiny app!")
   ),
 )
 

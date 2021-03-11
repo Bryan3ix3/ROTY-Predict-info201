@@ -159,14 +159,15 @@ two <- tabPanel(
           plotlyOutput(outputId = "scatterplot2"),
           br(),
           p("Graph plots respective statistic you choose using 2019 rookies
-            career stats data.")
+            career stats data. Pk = the number they were drafted at.")
         ),
         tabPanel(
           "First Season Advanced Statistics Table",
           DT::dataTableOutput("table2"),
           br(),
           p("Table shows the calculated z scores for individual stats and
-          the iScore is the total of those z scores.")
+          the iScore is the total of those z scores. Rk = their rank in 
+            iScores.")
         ),
         tabPanel(
           "First Season Stats Scatterplot",
@@ -239,7 +240,7 @@ three <- tabPanel(
           plotlyOutput(outputId = "scatterplot4"),
           br(),
           p("Graph plots respective statistic you choose using 2020 rookies
-            career stats data.")
+            career stats data. Pk = the number they were drafted at.")
         ),
         tabPanel(
           "I want to see rookie face",
